@@ -13,7 +13,8 @@ RUN pecl install xdebug \
 	&& docker-php-ext-enable xdebug
 RUN { \
 		echo "xdebug.mode=debug"; \
-		echo "xdebug.client_host=10.1.5.75"; \
+		echo "xdebug.discover_client_host=true"; \
+		echo "xdebug.client_host=10.1.5.114"; \
 		echo "xdebug.client_port=10443"; \
 	} > /usr/local/etc/php/conf.d/xdebug.ini
 
