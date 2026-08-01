@@ -1,10 +1,10 @@
-# Use the official PHP 8.4 FPM image as the base
+# Use the official PHP 8.3 FPM image as the base
 FROM php:8.4-fpm
 
 # Set environment variable to allow Composer to run as superuser
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# Install necessary development libraries for extensions
+# Install necessary development libraries for GD extension
 # libfreetype6-dev, libjpeg62-turbo-dev, libpng-dev are for GD
 # libonig-dev is for mbstring
 # libssl-dev is required for the php-redis extension
@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
         libonig-dev \
         libssl-dev \
         libsqlite3-dev \
-        libcurl4-openssl-dev \
+        libcurl4-openssl-dev && \
         libgmp-dev \
         libsodium-dev && \
     # Configure and install GD extension
@@ -36,10 +36,12 @@ RUN { \
         echo "xdebug.client_port=10443"; \
     } > /usr/local/etc/php/conf.d/xdebug.ini
 
+# Install common PHP extensions: mysqli, pdo, pdo_mysql, mbstring, opcache
+RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring opcache
+
 # Install common PHP extensions: mysqli, pdo, pdo_mysql, mbstring, opcache, gmp, sodium
 RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring opcache gmp sodium
 
-# --- START: Add Redis, SQLite, Curl Extensions ---
 # Install Redis PHP extension using pecl
 RUN pecl install redis && \
     docker-php-ext-enable redis
