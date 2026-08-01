@@ -72,7 +72,7 @@ RUN { \
         echo '[www]'; \
         echo 'user = www-data'; \
         echo 'group = www-data'; \
-        echo 'listen = 127.0.0.1:9000'; \
+        echo 'listen = 9000'; \
         echo 'pm = dynamic'; \
         echo 'pm.max_children = 86'; \
         echo 'pm.start_servers = 21'; \
