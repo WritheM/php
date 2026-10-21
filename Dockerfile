@@ -1,5 +1,5 @@
 # Use the official PHP 8.4 FPM image as the base
-FROM php:8.4-fpm
+FROM php:8.4.27-fpm
 
 # Set environment variable to allow Composer to run as superuser
 ENV COMPOSER_ALLOW_SUPERUSER 1
